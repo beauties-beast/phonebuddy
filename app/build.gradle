@@ -43,4 +43,6 @@ dependencies {
 
     //Optional for twowayview support (coming soon)
     //compile 'com.github.gabrielemariotti.cards:cardslib-extra-twoway:2.1.0'
+
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
 }

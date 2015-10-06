@@ -1,5 +1,6 @@
 <resources>
     <!-- Base application theme. -->
+    <!--TODO: Do not rely on AppCompat. USe native material instead.-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>

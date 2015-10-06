@@ -1,30 +1,20 @@
 package com.github.beauties_beast.phonebuddy;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
-import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.CardViewNative;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -82,27 +72,27 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    };
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     ArrayList<Card> cards = new ArrayList<>();
 
@@ -120,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
         cardHeader.setTitle("Getting Started");
         card.addCardHeader(cardHeader);
         card.setTitle("Get to know more about what PhoneBuddy can do!");
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), GettingStarted.class);
+                startActivity(intent);
+            }
+        });
         cards.add(card);
     }
 
@@ -153,17 +151,12 @@ public class MainActivity extends AppCompatActivity {
     private void renderCards() {
         CardArrayRecyclerViewAdapter cardArrayRecyclerViewAdapter = new CardArrayRecyclerViewAdapter(getBaseContext(), cards);
 
-        CardRecyclerView cardRecyclerView = (CardRecyclerView) findViewById(R.id.carddemo_recyclerview);
+        CardRecyclerView cardRecyclerView = (CardRecyclerView) findViewById(R.id.main_recyclerview);
         cardRecyclerView.setHasFixedSize(false);
         cardRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         if (cardRecyclerView != null) {
             cardRecyclerView.setAdapter(cardArrayRecyclerViewAdapter);
         }
-//        CardArrayAdapter cardArrayAdapter = new CardArrayAdapter(this, cards);
-//        CardListView listView = (CardListView) findViewById(R.id.myList);
-//        if(listView !=  null) {
-//            listView.setAdapter(cardArrayAdapter);
-//        }
     }
 }
