@@ -66,7 +66,7 @@ public class GettingStarted extends AppCompatActivity {
         cardHeader.setTitle("HelpItem1");
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
-        card.setTitle("Description HelpItem1");
+//        card.setTitle("Description HelpItem1");
         CardExpand cardExpand = new CardExpand(getBaseContext());
         cardExpand.setTitle("Expanded HelpItem1");
         card.addCardExpand(cardExpand);

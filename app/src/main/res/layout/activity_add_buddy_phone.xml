@@ -1,0 +1,86 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".MainActivity"
+    android:layout_margin="12dp"
+    android:id="@+id/scrollViewAddBuddyPhones">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Make sure you have your buddy phone near you. We will be sending a confirmation code to verify the pair request."
+            android:layout_gravity="center_horizontal|left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Phone Number (with country code):"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal|left" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/editTextNumber"
+            android:layout_gravity="center_horizontal"
+            android:hint="i.e. +639161234567" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:id="@+id/buttonAddSend"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="We have sent a confirmation code to the number listed above. Please enter the code below."
+            android:layout_marginTop="12dp"
+            android:visibility="invisible"
+            android:id="@+id/textViewConfirmation1"
+            android:layout_gravity="center_horizontal|left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Confirmation code:"
+            android:layout_marginTop="12dp"
+            android:visibility="invisible"
+            android:id="@+id/textViewConfirmation2"
+            android:layout_gravity="center_horizontal|left" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editTextAddConfirmation"
+            android:visibility="invisible"
+            android:layout_gravity="left" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verify"
+            android:id="@+id/buttonAddConfirmation"
+            android:visibility="invisible"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>

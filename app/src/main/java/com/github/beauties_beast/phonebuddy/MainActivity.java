@@ -1,13 +1,11 @@
 package com.github.beauties_beast.phonebuddy;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -21,12 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
 
-//    Button addBuddyButton;
-//    EditText addBuddyEditText;
-//    ListView buddyPhoneListView;
-
-    ArrayAdapter<BuddyPhone> buddyPhoneArrayAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,64 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(getBaseContext());
         initCards();
-
-//        addBuddyButton = (Button) findViewById(R.id.btn_add_buddy);
-//        buddyPhoneListView = (ListView) findViewById(R.id.lv_buddy_phones);
-
-//        addBuddyButton.setOnClickListener(addBuddy);
-
-//        Card card = new Card(getBaseContext());
-//
-//        CardHeader header = new CardHeader(getBaseContext());
-//
-//        header.setTitle("Getting Started");
-//
-//        card.addCardHeader(header);
-//
-//        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
-//
-//        cardView.setCard(card);
-//        cardView.
     }
-
-//    OnClickListener addBuddy = new OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Log.d(TAG, "fuck1");
-//            addBuddyEditText = (EditText) findViewById(R.id.et_add_buddy);
-//
-//            Log.d(TAG, "fuck2");
-//            BuddyPhone buddyPhone = new BuddyPhone("", addBuddyEditText.getText().toString());
-//            databaseHelper.addBuddyPhone(buddyPhone);
-//
-//            Log.d(TAG, "fuck3");
-//            buddyPhoneArrayAdapter = new ArrayAdapter<BuddyPhone>(getBaseContext(), R.layout.buddy_phone_list_item);
-//            buddyPhoneArrayAdapter.addAll(databaseHelper.getBuddyPhones());
-//            buddyPhoneListView.setAdapter(buddyPhoneArrayAdapter);
-//            Log.d(TAG, "fuck4");
-//        }
-//    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     ArrayList<Card> cards = new ArrayList<>();
@@ -127,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         cardHeader.setTitle("Manage Buddy Phones");
         card.addCardHeader(cardHeader);
         card.setTitle("Add or remove buddy phones paired with this smartphone.");
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), ManageBuddyPhones.class);
+                startActivity(intent);
+            }
+        });
         cards.add(card);
     }
 

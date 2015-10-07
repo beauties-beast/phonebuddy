@@ -49,6 +49,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".ManageBuddyPhones"
+            android:label="@string/title_activity_manage_buddy_phones" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddBuddyPhone"
+            android:label="@string/title_activity_add_buddy_phone" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ManageBuddyPhones" />
+        </activity>
     </application>
 
 </manifest>

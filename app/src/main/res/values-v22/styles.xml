@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--TODO: Do not rely on AppCompat. USe native material instead.-->
-    <style name="AppBaseTheme" parent="AppTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:colorPrimary">@color/theme_orange</item>
-        <item name="android:colorPrimaryDark">@color/theme_orange</item>
-    </style>
-</resources>

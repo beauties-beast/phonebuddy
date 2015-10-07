@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme_orange">#F1580C</color>
+    <color name="primary">#EF6C00</color>
+    <color name="primary_darker">#E65100</color>
+    <color name="primary_pressed">#E65100</color>
+    <color name="ripple">#FFE0B2</color>
 </resources>

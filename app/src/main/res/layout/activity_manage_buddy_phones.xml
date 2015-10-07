@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     tools:context=".MainActivity"
-    android:id="@+id/scrollViewMain">
+    android:id="@+id/scrollViewManageBuddyPhones">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             card:list_card_layout_resourceID="@layout/recyclerview_card_layout"
-            android:id="@+id/main_recyclerview"/>
+            android:id="@+id/manage_buddy_phones_recyclerview"/>
 
     </LinearLayout>
 </ScrollView>

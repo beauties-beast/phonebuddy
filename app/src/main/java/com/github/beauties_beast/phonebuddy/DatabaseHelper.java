@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseHelper";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "PhoneBuddy.db";
 
     public static final String BUDDY_TABLE_NAME = "buddies";
@@ -39,13 +39,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql.append(String.format("%s %s, ", BUDDY_COLUMN_ID, "INTEGER PRIMARY KEY"));
         sql.append(String.format("%s %s ", BUDDY_COLUMN_NUMBER, "TEXT"));
         sql.append(")");
+        Log.d(TAG, String.format("Exec: %s", sql.toString()));
         db.execSQL(sql.toString());
+
+        sql = new StringBuilder();
 
         sql.append(String.format("CREATE TABLE %s ", NOTIFICATION_TABLE_NAME));
         sql.append("(");
         sql.append(String.format("%s %s, ", NOTIFICATION_COLUMN_ID, "INTEGER PRIMARY KEY"));
         sql.append(String.format("%s %s ", NOTIFICATION_COLUMN_PACKAGE_NAME, "TEXT"));
         sql.append(")");
+        Log.d(TAG, String.format("Exec: %s", sql.toString()));
         db.execSQL(sql.toString());
     }
 
@@ -58,9 +62,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addBuddyPhone(BuddyPhone buddyPhone) {
+        Log.d(TAG, String.format("Database addBuddyPhone()"));
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(BUDDY_TABLE_NAME, buddyPhone.getPhoneNumber());
+        values.put(BUDDY_COLUMN_NUMBER, buddyPhone.getPhoneNumber());
 
         db.insert(BUDDY_TABLE_NAME, null, values);
         db.close();
