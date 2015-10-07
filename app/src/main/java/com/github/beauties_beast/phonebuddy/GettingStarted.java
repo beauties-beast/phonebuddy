@@ -55,20 +55,72 @@ public class GettingStarted extends AppCompatActivity {
     ArrayList<Card> cards = new ArrayList<>();
 
     public void initCards() {
-        for(int i = 0; i < 10; i++)
-            initHelpItem1();
+//        for(int i = 0; i < 10; i++)
+//            initHelpItem1();
+        initHelpItem1();
+        initHelpItem2();
+        initHelpItem3();
+        initHelpItem4();
+        initHelpItem5();
         renderCards();
     }
 
     private void initHelpItem1() {
         Card card = new Card(getBaseContext());
         CardHeader cardHeader = new CardHeader(getBaseContext());
-        cardHeader.setTitle("HelpItem1");
+        cardHeader.setTitle("What is PhoneBuddy?");
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
-//        card.setTitle("Description HelpItem1");
         CardExpand cardExpand = new CardExpand(getBaseContext());
-        cardExpand.setTitle("Expanded HelpItem1");
+        cardExpand.setTitle("PhoneBuddy is an Android buddy pairing application that features incoming SMS forwarding, outgoing SMS forwarding and notification forwarding.");
+        card.addCardExpand(cardExpand);
+        cards.add(card);
+    }
+
+    private void initHelpItem2() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("How can I pair my buddy phone?");
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        CardExpand cardExpand = new CardExpand(getBaseContext());
+        cardExpand.setTitle("Under 'Manage Buddy Phones', tap on the + on the top right to pair a new buddy phone. Just enter your cellphone number and a verification code would be sent.");
+        card.addCardExpand(cardExpand);
+        cards.add(card);
+    }
+
+    private void initHelpItem3() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("How can I remove my buddy phone?");
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        CardExpand cardExpand = new CardExpand(getBaseContext());
+        cardExpand.setTitle("Under 'Manage Buddy Phones', choose the buddy phone and press delete.");
+        card.addCardExpand(cardExpand);
+        cards.add(card);
+    }
+
+    private void initHelpItem4() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("How can I choose what notifications to receive?");
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        CardExpand cardExpand = new CardExpand(getBaseContext());
+        cardExpand.setTitle("Under 'Settings', you can choose which applications would be able to forward notifications to your buddy phone.");
+                card.addCardExpand(cardExpand);
+        cards.add(card);
+    }
+
+    private void initHelpItem5() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("How do I activate PhoneBuddy?");
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        CardExpand cardExpand = new CardExpand(getBaseContext());
+        cardExpand.setTitle("There is a toggle button on the top bar where you can activate and deactivate the service.");
         card.addCardExpand(cardExpand);
         cards.add(card);
     }
