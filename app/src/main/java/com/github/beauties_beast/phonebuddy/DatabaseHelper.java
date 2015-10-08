@@ -14,17 +14,28 @@ import java.util.ArrayList;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseHelper";
-    public static final int DATABASE_VERSION = 4;
+
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "PhoneBuddy.db";
 
-    public static final String BUDDY_TABLE_NAME = "buddies";
+    public static final String BUDDY_TABLE_NAME = "buddies_list";
     public static final String BUDDY_COLUMN_ID = "id";
     public static final String BUDDY_COLUMN_NAME = "name";
     public static final String BUDDY_COLUMN_NUMBER = "number";
+    public static final String BUDDY_COLUMN_CREATED_AT = "created_at";
 
-    public static final String NOTIFICATION_TABLE_NAME = "notificationconfig";
-    public static final String NOTIFICATION_COLUMN_ID = "id";
-    public static final String NOTIFICATION_COLUMN_PACKAGE_NAME = "packagename";
+    public static final String NOTIFICATION_CONFIG_TABLE_NAME = "notification_config";
+    public static final String NOTIFICATION_CONFIG_COLUMN_ID = "id";
+    public static final String NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME = "package_name";
+    public static final String NOTIFICATION_CONFIG_CREATED_AT = "created_at";
+
+    public static final String NOTIFICATION_LOG_TABLE_NAME = "notification_log";
+    public static final String NOTIFICATION_LOG_COLUMN_ID = "id";
+    public static final String NOTIFICATION_LOG_COLUMN_PACKAGE_NAME = "package_name";
+    public static final String NOTIFICATION_LOG_COLUMN_TICKER_TEXT= "ticker_text";
+    public static final String NOTIFICATION_LOG_COLUMN_TITLE= "title";
+    public static final String NOTIFICATION_LOG_COLUMN_TEXT= "text";
+    public static final String NOTIFICATION_LOG_COLUMN_CREATED_AT = "created_at";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,34 +44,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, String.format("Database create version %s.", DATABASE_VERSION));
-        StringBuilder sql = new StringBuilder();
-
-        sql.append(String.format("CREATE TABLE %s ", BUDDY_TABLE_NAME));
-        sql.append("(");
-        sql.append(String.format("%s %s, ", BUDDY_COLUMN_ID, "INTEGER PRIMARY KEY"));
-        sql.append(String.format("%s %s, ", BUDDY_COLUMN_NAME, "TEXT"));
-        sql.append(String.format("%s %s ", BUDDY_COLUMN_NUMBER, "TEXT"));
-        sql.append(")");
-        Log.d(TAG, String.format("Exec: %s", sql.toString()));
-        db.execSQL(sql.toString());
-
-        sql = new StringBuilder();
-
-        sql.append(String.format("CREATE TABLE %s ", NOTIFICATION_TABLE_NAME));
-        sql.append("(");
-        sql.append(String.format("%s %s, ", NOTIFICATION_COLUMN_ID, "INTEGER PRIMARY KEY"));
-        sql.append(String.format("%s %s ", NOTIFICATION_COLUMN_PACKAGE_NAME, "TEXT"));
-        sql.append(")");
-        Log.d(TAG, String.format("Exec: %s", sql.toString()));
-        db.execSQL(sql.toString());
+        initializeBuddyTable(db);
+        initializeNotificationConfigTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, String.format("Database upgrade from %s to %s.", oldVersion, newVersion));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", BUDDY_TABLE_NAME));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", NOTIFICATION_TABLE_NAME));
+        dropBuddyTable(db);
+        dropNotificationPreferenceTable(db);
         onCreate(db);
+    }
+
+    public void initializeBuddyTable(SQLiteDatabase db) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(String.format("CREATE TABLE %s ", BUDDY_TABLE_NAME));
+        sql.append("(");
+        sql.append(String.format("%s %s, ", BUDDY_COLUMN_ID, "INTEGER PRIMARY KEY"));
+        sql.append(String.format("%s %s, ", BUDDY_COLUMN_NAME, "TEXT"));
+        sql.append(String.format("%s %s, ", BUDDY_COLUMN_NUMBER, "TEXT"));
+        sql.append(String.format("%s %s ", BUDDY_COLUMN_CREATED_AT, "DATETIME DEFAULT CURRENT_TIMESTAMP"));
+        sql.append(")");
+        Log.d(TAG, String.format("Exec: %s", sql.toString()));
+        db.execSQL(sql.toString());
+    }
+
+    public void dropBuddyTable(SQLiteDatabase db) {
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", BUDDY_TABLE_NAME));
+    }
+
+    public void initializeNotificationConfigTable(SQLiteDatabase db) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(String.format("CREATE TABLE %s ", NOTIFICATION_CONFIG_TABLE_NAME));
+        sql.append("(");
+        sql.append(String.format("%s %s, ", NOTIFICATION_CONFIG_COLUMN_ID, "INTEGER PRIMARY KEY"));
+        sql.append(String.format("%s %s, ", NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME, "TEXT"));
+        sql.append(String.format("%s %s ", NOTIFICATION_CONFIG_CREATED_AT, "DATETIME DEFAULT CURRENT_TIMESTAMP"));
+        sql.append(")");
+        Log.d(TAG, String.format("Exec: %s", sql.toString()));
+        db.execSQL(sql.toString());
+    }
+
+    public void dropNotificationPreferenceTable(SQLiteDatabase db) {
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", NOTIFICATION_CONFIG_TABLE_NAME));
     }
 
     public void addBuddyPhone(BuddyPhone buddyPhone) {
