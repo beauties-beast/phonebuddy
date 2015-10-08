@@ -49,15 +49,24 @@ public class AddBuddyPhone extends AppCompatActivity {
     View.OnClickListener buttonSendClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            editTextNumber.setEnabled(false);
-            buttonSend.setEnabled(false);
-            confirmation1.setVisibility(View.VISIBLE);
-            confirmation2.setVisibility(View.VISIBLE);
-            editTextConfirmationCode.setVisibility(View.VISIBLE);
-            buttonConfirmation.setVisibility(View.VISIBLE);
-            sendRequest();
-            String toastMessage = String.format("Confirmation code sent to %s.", phoneNumber);
-            Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
+            String number = editTextNumber.getText().toString();
+            if (number.equals("")) {
+                String toastMessage = "This field cannot be empty.";
+                Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            } else if (!number.contains("+")) {
+                String toastMessage = "This doesn't seem to be a valid number.";
+                Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            } else {
+                editTextNumber.setEnabled(false);
+                buttonSend.setEnabled(false);
+                confirmation1.setVisibility(View.VISIBLE);
+                confirmation2.setVisibility(View.VISIBLE);
+                editTextConfirmationCode.setVisibility(View.VISIBLE);
+                buttonConfirmation.setVisibility(View.VISIBLE);
+                sendRequest();
+                String toastMessage = String.format("Confirmation code sent to %s.", phoneNumber);
+                Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -73,7 +82,7 @@ public class AddBuddyPhone extends AppCompatActivity {
             else {
                 toastMessage = String.format("Buddy phone %s paired successfully.", phoneNumber);
                 Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
-                BuddyPhone buddyPhone = new BuddyPhone("", phoneNumber);
+                BuddyPhone buddyPhone = new BuddyPhone("Buddy Phone", phoneNumber);
                 databaseHelper.addBuddyPhone(buddyPhone);
                 finish();
             }

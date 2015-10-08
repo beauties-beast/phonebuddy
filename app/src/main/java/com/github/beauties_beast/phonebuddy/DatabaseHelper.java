@@ -14,11 +14,12 @@ import java.util.ArrayList;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseHelper";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "PhoneBuddy.db";
 
     public static final String BUDDY_TABLE_NAME = "buddies";
     public static final String BUDDY_COLUMN_ID = "id";
+    public static final String BUDDY_COLUMN_NAME = "name";
     public static final String BUDDY_COLUMN_NUMBER = "number";
 
     public static final String NOTIFICATION_TABLE_NAME = "notificationconfig";
@@ -37,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql.append(String.format("CREATE TABLE %s ", BUDDY_TABLE_NAME));
         sql.append("(");
         sql.append(String.format("%s %s, ", BUDDY_COLUMN_ID, "INTEGER PRIMARY KEY"));
+        sql.append(String.format("%s %s, ", BUDDY_COLUMN_NAME, "TEXT"));
         sql.append(String.format("%s %s ", BUDDY_COLUMN_NUMBER, "TEXT"));
         sql.append(")");
         Log.d(TAG, String.format("Exec: %s", sql.toString()));
@@ -65,9 +67,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, String.format("Database addBuddyPhone()"));
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(BUDDY_COLUMN_NAME, buddyPhone.getNickName());
         values.put(BUDDY_COLUMN_NUMBER, buddyPhone.getPhoneNumber());
-
         db.insert(BUDDY_TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void removeBuddyPhone(String number) {
+        removeBuddyPhone(new BuddyPhone("", number));
+    }
+
+    public void removeBuddyPhone(BuddyPhone buddyPhone) {
+        Log.d(TAG, String.format("Database removeBuddyPhone()"));
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(BUDDY_TABLE_NAME, BUDDY_COLUMN_NUMBER + " =? ", new String[]{String.valueOf(buddyPhone.getPhoneNumber())});
         db.close();
     }
 
@@ -80,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.rawQuery(String.format("SELECT * FROM %s ", BUDDY_TABLE_NAME), null);
 
         Cursor cursor = db.query(BUDDY_TABLE_NAME,
-            new String[]{ BUDDY_COLUMN_NUMBER },
+            new String[]{ BUDDY_COLUMN_NAME, BUDDY_COLUMN_NUMBER },
             null, // id = ?
             null,
             null,
@@ -90,8 +103,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()) {
             do {
+                String name = cursor.getString(cursor.getColumnIndex(BUDDY_COLUMN_NAME));
                 String number = cursor.getString(cursor.getColumnIndex(BUDDY_COLUMN_NUMBER));
-                buddyPhones.add(new BuddyPhone("", number));
+                buddyPhones.add(new BuddyPhone(name, number));
             } while(cursor.moveToNext());
         }
 
