@@ -79,6 +79,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.beauties_beast.phonebuddy.MainActivity" />
         </activity>
+        <activity
+            android:name=".NotificationConfig"
+            android:label="@string/title_activity_notification_config" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.beauties_beast.phonebuddy.Settings" />
+        </activity>
     </application>
 
 </manifest>

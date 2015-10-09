@@ -8,4 +8,5 @@
     <string name="title_activity_add_buddy_phone">Add New Buddy</string>
     <string name="title_activity_activity_log">Activity Log</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_notification_config">Notification Preferences</string>
 </resources>

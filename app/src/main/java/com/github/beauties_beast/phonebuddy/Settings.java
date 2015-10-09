@@ -66,7 +66,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), GettingStarted.class);
+                intent.setClass(getBaseContext(), NotificationConfig.class);
                 startActivity(intent);
             }
         });

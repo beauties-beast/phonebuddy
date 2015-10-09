@@ -1,29 +1,33 @@
 package com.github.beauties_beast.phonebuddy;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 
-public class ActivityLog extends AppCompatActivity {
-    public final static String TAG = "ActivityLog";
+public class NotificationConfig extends AppCompatActivity {
+    private static final String TAG = "NotifificationConfig";
 
     DatabaseHelper databaseHelper;
-    ArrayList<Card> cards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_log);
+        setContentView(R.layout.activity_notification_config);
 
         databaseHelper = new DatabaseHelper(getBaseContext());
         initCards();
@@ -32,7 +36,7 @@ public class ActivityLog extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_log, menu);
+        getMenuInflater().inflate(R.menu.menu_notification_config, menu);
         return true;
     }
 
@@ -43,46 +47,33 @@ public class ActivityLog extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
+    ArrayList<Card> cards;
+    List packageList;
+
     public void initCards() {
         cards = new ArrayList<>();
-        initActivityLogCards();
+        initNotificationCards();
         renderCards();
     }
 
-    public void initActivityLogCards() {
-        ArrayList<Notification> notifications = databaseHelper.getNotifications();
-        if (!ServiceManager.getInstance().isActive()) {
-            databaseHelper.resetNotifications();
-            Log.d(TAG, "ActivityLog Service disabled.");
+    public void initNotificationCards() {
+        PackageManagerHelper packageManagerHelper = new PackageManagerHelper(getBaseContext());
+        List<ApplicationInfo> packages = packageManagerHelper.getAllPackages();
+        Log.d(TAG, String.format("NotificationConfig packages %s size", String.valueOf(packages.size())));
+        for(ApplicationInfo applicationInfo : packages) {
             Card card = new Card(getBaseContext());
             CardHeader cardHeader = new CardHeader(getBaseContext());
-            cardHeader.setTitle("PhoneBuddy is disabled.");
+            cardHeader.setTitle(packageManagerHelper.getAppName(applicationInfo.packageName));
             card.addCardHeader(cardHeader);
-            card.setTitle("Enable PhoneBuddy to start relaying notifications to your buddy phone!");
-            cards.add(card);
-        } else if (notifications.size() > 0) {
-            Log.d(TAG, String.format("ActivityLog %s notifications.", String.valueOf(notifications.size())));
-            for (Notification notification : notifications) {
-                String appName = notification.getAppName(getBaseContext());
-                Card card = new Card(getBaseContext());
-                final CardHeader cardHeader = new CardHeader(getBaseContext());
-                cardHeader.setTitle(appName);
-                card.addCardHeader(cardHeader);
-                card.setTitle(String.format("Received notification \"%s\" from %s on %s.", notification.getPreferredText(), appName, notification.getSimpleCreatedAt()));
-                cards.add(card);
-            }
-        } else {
-            Log.d(TAG, "ActivityLog No activities.");
-            Card card = new Card(getBaseContext());
-            CardHeader cardHeader = new CardHeader(getBaseContext());
-            cardHeader.setTitle("No recent activities.");
-            card.addCardHeader(cardHeader);
-            card.setTitle("Activities like SMS and Notifications will be displayed here as soon as they come in.");
+            card.setTitle(applicationInfo.packageName);
             cards.add(card);
         }
     }
@@ -90,7 +81,7 @@ public class ActivityLog extends AppCompatActivity {
     private void renderCards() {
         CardArrayRecyclerViewAdapter cardArrayRecyclerViewAdapter = new CardArrayRecyclerViewAdapter(getBaseContext(), cards);
 
-        CardRecyclerView cardRecyclerView = (CardRecyclerView) findViewById(R.id.activity_log_reyclerview);
+        CardRecyclerView cardRecyclerView = (CardRecyclerView) findViewById(R.id.notificationconfig_recyclerview);
         cardRecyclerView.setHasFixedSize(false);
         cardRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 

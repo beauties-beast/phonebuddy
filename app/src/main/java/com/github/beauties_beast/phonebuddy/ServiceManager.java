@@ -11,6 +11,7 @@ public class ServiceManager {
     }
 
     private ServiceManager() {
+        active = false;
     }
 
     private boolean active;

@@ -33,21 +33,8 @@ public class Notification {
     }
 
     public String getAppName(Context context) {
-        String appName = "";
-
-        PackageManager packageManager = context.getPackageManager();
-        ApplicationInfo applicationInfo;
-        try
-        {
-            applicationInfo = packageManager.getApplicationInfo(packageName, 0);
-            appName = (String) packageManager.getApplicationLabel(applicationInfo);
-        }
-        catch (final PackageManager.NameNotFoundException e)
-        {
-            appName = packageName;
-        }
-
-        return appName;
+        PackageManagerHelper packageManagerHelper = new PackageManagerHelper(context);
+        return packageManagerHelper.getAppName(packageName);
     }
 
     public String getPreferredTitle() {

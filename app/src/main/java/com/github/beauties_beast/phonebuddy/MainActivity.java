@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     DatabaseHelper databaseHelper;
+
+    SwitchCompat actionBarSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,28 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.mainSwitch);
         item.setActionView(R.layout.action_bar_switch_layout);
+
+        actionBarSwitch = (SwitchCompat) menu.findItem(R.id.mainSwitch).getActionView().findViewById(R.id.switchForActionBar);
+        actionBarSwitch.setChecked(ServiceManager.getInstance().isActive());
+        actionBarSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ServiceManager.getInstance().setActive(isChecked);
+                Toast.makeText(getBaseContext(), String.format("PhoneBuddy is now %s.", isChecked ? "active" : "disabled"), Toast.LENGTH_LONG).show();
+            }
+        });
+//        actionBarSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.
+//                if (v.isActivated()) {
+//                    Toast.makeText(getBaseContext(), "fuck activated", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getBaseContext(), "fuck not activated", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
         return true;
     }
 
