@@ -6,4 +6,6 @@
     <string name="title_activity_getting_started">Getting Started</string>
     <string name="title_activity_manage_buddy_phones">Buddy Phones</string>
     <string name="title_activity_add_buddy_phone">Add New Buddy</string>
+    <string name="title_activity_activity_log">Activity Log</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

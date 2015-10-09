@@ -13,6 +13,8 @@ import android.util.Log;
 public class NotificationReceiver extends NotificationListenerService {
     private static final String TAG = "NotificationReceiver";
 
+    DatabaseHelper databaseHelper;
+
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
@@ -37,6 +39,8 @@ public class NotificationReceiver extends NotificationListenerService {
                 text = "";
             }
 
+        Notification notification = new Notification(packageName, tickerText, title, text);
+
         Log.d(TAG, "packageName: " + packageName);
         Log.d(TAG, "tickerText: " + tickerText);
         Log.d(TAG, "title: " + title);
@@ -50,6 +54,9 @@ public class NotificationReceiver extends NotificationListenerService {
 
         LocalBroadcastManager.getInstance(getBaseContext()).sendBroadcast(msgrcv);
         //TODO: Send app name, packageName, and tickerText (or full text) to class that forwards messages to buddy phone.
+
+        databaseHelper = new DatabaseHelper(getBaseContext());
+        databaseHelper.addNotification(notification);
 
         super.onNotificationPosted(sbn);
     }

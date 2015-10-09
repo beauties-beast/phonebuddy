@@ -63,6 +63,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ManageBuddyPhones" />
         </activity>
+        <activity
+            android:name=".ActivityLog"
+            android:label="@string/title_activity_activity_log"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.beauties_beast.phonebuddy.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.beauties_beast.phonebuddy.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

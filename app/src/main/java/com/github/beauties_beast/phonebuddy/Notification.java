@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by boggs on 10/8/15.
  */
@@ -12,12 +15,21 @@ public class Notification {
     private String tickerText;
     private String title;
     private String text;
+    private Date createdAt;
 
     public Notification(String packageName, String tickerText, String title, String text) {
         this.packageName = packageName;
         this.tickerText = tickerText;
         this.title = title;
         this.text = text;
+    }
+
+    public Notification(String packageName, String tickerText, String title, String text, Date createdAt) {
+        this.packageName = packageName;
+        this.tickerText = tickerText;
+        this.title = title;
+        this.text = text;
+        this.createdAt = createdAt;
     }
 
     public String getAppName(Context context) {
@@ -52,6 +64,11 @@ public class Notification {
         } else {
             return tickerText;
         }
+    }
+
+    public String getSimpleCreatedAt() {
+        SimpleDateFormat createdAtFormat = new SimpleDateFormat("MMM d, yyyy 'at' h:mm a");
+        return createdAtFormat.format(createdAt).toString();
     }
 
     public String getPackageName() {

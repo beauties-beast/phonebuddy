@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper = new DatabaseHelper(getBaseContext());
+        databaseHelper.resetNotifications();
         initCards();
     }
 
@@ -88,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
         cardHeader.setTitle("Show Activity Log");
         card.addCardHeader(cardHeader);
         card.setTitle("Check the interactions between this smartphone and your buddy phones.");
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), ActivityLog.class);
+                startActivity(intent);
+            }
+        });
         cards.add(card);
     }
 
@@ -97,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
         cardHeader.setTitle("Settings");
         card.addCardHeader(cardHeader);
         card.setTitle("Change PhoneBuddy's settings. Wow boggs naubusan ka na ba ng Ingles punyeta");
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), Settings.class);
+                startActivity(intent);
+            }
+        });
         cards.add(card);
     }
 

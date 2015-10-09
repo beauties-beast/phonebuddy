@@ -78,16 +78,15 @@ public class ManageBuddyPhones extends AppCompatActivity {
             Log.d(TAG, String.format("ManageBuddyPhones %s buddy phones.", String.valueOf(buddyPhones.size())));
             for (BuddyPhone buddyPhone : buddyPhones) {
                 Card card = new Card(getBaseContext());
-                CardHeader cardHeader = new CardHeader(getBaseContext());
-                cardHeader.setTitle(!buddyPhone.getNickName().equals("") ? buddyPhone.getNickName() : "Buddy Phone");
+                final CardHeader cardHeader = new CardHeader(getBaseContext());
+//                cardHeader.setTitle(!buddyPhone.getNickName().equals("") ? buddyPhone.getNickName() : "Buddy Phone");
+                cardHeader.setTitle(buddyPhone.getPhoneNumber());
                 cardHeader.setButtonOverflowVisible(true);
-                cardHeader.setPopupMenu(R.menu.menu_manage_buddy_phone_item, new CardHeader.OnClickCardHeaderPopupMenuListener() {
+                CardHeader.OnClickCardHeaderPopupMenuListener popupMenuListener = new CardHeader.OnClickCardHeaderPopupMenuListener() {
                     @Override
                     public void onMenuItemClick(BaseCard baseCard, MenuItem menuItem) {
-                        if (menuItem.getTitle().equals("Edit Name")) {
-
-                        } else if (menuItem.getTitle().equals("Remove")) {
-                            databaseHelper.removeBuddyPhone(baseCard.getTitle());
+                        if (menuItem.getTitle().equals("Remove")) {
+                            databaseHelper.removeBuddyPhone(cardHeader.getTitle());
                             String toastMessage = String.format("Successfully removed %s.", baseCard.getTitle());
                             Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
                         }
@@ -95,9 +94,10 @@ public class ManageBuddyPhones extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                });
+                };
+                cardHeader.setPopupMenu(R.menu.menu_manage_buddy_phone_item, popupMenuListener);
                 card.addCardHeader(cardHeader);
-                card.setTitle(buddyPhone.getPhoneNumber());
+                card.setTitle(String.format("Added on %s", buddyPhone.getSimpleCreatedAt()));
                 cards.add(card);
             }
         } else {
