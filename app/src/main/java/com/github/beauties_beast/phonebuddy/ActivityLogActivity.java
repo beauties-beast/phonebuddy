@@ -14,8 +14,8 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 
-public class ActivityLog extends AppCompatActivity {
-    public final static String TAG = "ActivityLog";
+public class ActivityLogActivity extends AppCompatActivity {
+    public final static String TAG = "ActivityLogActivity";
 
     DatabaseHelper databaseHelper;
     ArrayList<Card> cards;
@@ -58,7 +58,7 @@ public class ActivityLog extends AppCompatActivity {
         ArrayList<Notification> notifications = databaseHelper.getNotifications();
         if (!ServiceManager.getInstance().isActive()) {
             databaseHelper.resetNotifications();
-            Log.d(TAG, "ActivityLog Service disabled.");
+            Log.d(TAG, "ActivityLogActivity Service disabled.");
             Card card = new Card(getBaseContext());
             CardHeader cardHeader = new CardHeader(getBaseContext());
             cardHeader.setTitle("PhoneBuddy is disabled.");
@@ -66,7 +66,7 @@ public class ActivityLog extends AppCompatActivity {
             card.setTitle("Enable PhoneBuddy to start relaying notifications to your buddy phone!");
             cards.add(card);
         } else if (notifications.size() > 0) {
-            Log.d(TAG, String.format("ActivityLog %s notifications.", String.valueOf(notifications.size())));
+            Log.d(TAG, String.format("ActivityLogActivity %s notifications.", String.valueOf(notifications.size())));
             for (Notification notification : notifications) {
                 String appName = notification.getAppName(getBaseContext());
                 Card card = new Card(getBaseContext());
@@ -77,7 +77,7 @@ public class ActivityLog extends AppCompatActivity {
                 cards.add(card);
             }
         } else {
-            Log.d(TAG, "ActivityLog No activities.");
+            Log.d(TAG, "ActivityLogActivity No activities.");
             Card card = new Card(getBaseContext());
             CardHeader cardHeader = new CardHeader(getBaseContext());
             cardHeader.setTitle("No recent activities.");

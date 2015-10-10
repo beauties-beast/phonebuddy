@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class AddBuddyPhone extends AppCompatActivity {
+public class AddBuddyPhoneActivity extends AppCompatActivity {
 
     private String phoneNumber;
     private String confirmationCode;
@@ -118,6 +118,6 @@ public class AddBuddyPhone extends AppCompatActivity {
         Random r = new Random();
         confirmationCode = String.valueOf(r.nextInt(9999-1000)+10000);
         String message = String.format("Your confirmation code is %s.", confirmationCode);
-        SmsHelper.sendSmsWithHeaders(phoneNumber, message);
+        SmsHelper.sendSms(phoneNumber, message, SmsHelper.WITH_HEADER);
     }
 }

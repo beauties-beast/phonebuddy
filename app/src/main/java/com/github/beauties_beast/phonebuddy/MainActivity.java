@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(getBaseContext());
         databaseHelper.resetNotifications();
+
+        ServiceManager.getInstance().initContext(getBaseContext());
+        ServiceManager.getInstance().initDatabaseHelper();
+
         initCards();
     }
 
@@ -47,8 +51,18 @@ public class MainActivity extends AppCompatActivity {
         actionBarSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ServiceManager.getInstance().setActive(isChecked);
-                Toast.makeText(getBaseContext(), String.format("PhoneBuddy is now %s.", isChecked ? "active" : "disabled"), Toast.LENGTH_LONG).show();
+                boolean changed = ServiceManager.getInstance().setActive(isChecked);
+                if(isChecked) {
+                    if(changed)
+                        Toast.makeText(getBaseContext(), String.format("PhoneBuddy is now %s.", isChecked ? "active" : "disabled"), Toast.LENGTH_LONG).show();
+                    else {
+                        buttonView.setChecked(false);
+                        Toast.makeText(getBaseContext(), String.format("There are no paired buddy phones. Pair a phone before enabling PhoneBuddy.", isChecked ? "active" : "disabled"), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    if(changed)
+                        Toast.makeText(getBaseContext(), String.format("PhoneBuddy is now %s.", isChecked ? "active" : "disabled"), Toast.LENGTH_LONG).show();
+                }
             }
         });
 //        actionBarSwitch.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), GettingStarted.class);
+                intent.setClass(getBaseContext(), GettingStartedActivity.class);
                 startActivity(intent);
             }
         });
@@ -103,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), ManageBuddyPhones.class);
+                intent.setClass(getBaseContext(), ManageBuddyPhonesActivity.class);
                 startActivity(intent);
             }
         });
@@ -120,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), ActivityLog.class);
+                intent.setClass(getBaseContext(), ActivityLogActivity.class);
                 startActivity(intent);
             }
         });
@@ -132,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
         CardHeader cardHeader = new CardHeader(getBaseContext());
         cardHeader.setTitle("Settings");
         card.addCardHeader(cardHeader);
-        card.setTitle("Change PhoneBuddy's settings. Wow boggs naubusan ka na ba ng Ingles punyeta");
+        card.setTitle("Change PhoneBuddy's settings.");
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), Settings.class);
+                intent.setClass(getBaseContext(), SettingsActivity.class);
                 startActivity(intent);
             }
         });

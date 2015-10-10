@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -43,28 +45,28 @@
         </service>
 
         <activity
-            android:name=".GettingStarted"
+            android:name=".GettingStartedActivity"
             android:label="@string/title_activity_getting_started" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ManageBuddyPhones"
+            android:name=".ManageBuddyPhonesActivity"
             android:label="@string/title_activity_manage_buddy_phones" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".AddBuddyPhone"
+            android:name=".AddBuddyPhoneActivity"
             android:label="@string/title_activity_add_buddy_phone" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ManageBuddyPhones" />
+                android:value=".ManageBuddyPhonesActivity" />
         </activity>
         <activity
-            android:name=".ActivityLog"
+            android:name=".ActivityLogActivity"
             android:label="@string/title_activity_activity_log"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -72,7 +74,7 @@
                 android:value="com.github.beauties_beast.phonebuddy.MainActivity" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -80,11 +82,11 @@
                 android:value="com.github.beauties_beast.phonebuddy.MainActivity" />
         </activity>
         <activity
-            android:name=".NotificationConfig"
+            android:name=".NotificationConfigActivity"
             android:label="@string/title_activity_notification_config" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.github.beauties_beast.phonebuddy.Settings" />
+                android:value=".SettingsActivity" />
         </activity>
     </application>
 

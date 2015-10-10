@@ -58,6 +58,10 @@ public class Notification {
         return createdAtFormat.format(createdAt).toString();
     }
 
+    public String formatForSms(Context context) {
+        return String.format("Received notification from %s (%s): \"%s\"", getAppName(context), getPackageName(), getPreferredText());
+    }
+
     public String getPackageName() {
         return packageName;
     }

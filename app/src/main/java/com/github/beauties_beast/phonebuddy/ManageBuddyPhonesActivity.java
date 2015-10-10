@@ -18,8 +18,8 @@ import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 
-public class ManageBuddyPhones extends AppCompatActivity {
-    public final static String TAG = "ManageBuddyPhones";
+public class ManageBuddyPhonesActivity extends AppCompatActivity {
+    public final static String TAG = "ManageBuddyPhonesActivity";
 
     DatabaseHelper databaseHelper;
     ArrayList<Card> cards;
@@ -57,7 +57,7 @@ public class ManageBuddyPhones extends AppCompatActivity {
             return true;
         } else if (id == R.id.manage_buddy_phones_add) {
             Intent intent = new Intent();
-            intent.setClass(getBaseContext(), AddBuddyPhone.class);
+            intent.setClass(getBaseContext(), AddBuddyPhoneActivity.class);
             startActivity(intent);
         }
 
@@ -65,7 +65,7 @@ public class ManageBuddyPhones extends AppCompatActivity {
     }
 
     public void initCards() {
-        Log.d(TAG, "ManageBuddyPhones initCards()");
+        Log.d(TAG, "ManageBuddyPhonesActivity initCards()");
 
         cards = new ArrayList<>();
         initBuddyPhones();
@@ -75,7 +75,7 @@ public class ManageBuddyPhones extends AppCompatActivity {
     private void initBuddyPhones() {
         ArrayList<BuddyPhone> buddyPhones = databaseHelper.getBuddyPhones();
         if (buddyPhones.size() > 0) {
-            Log.d(TAG, String.format("ManageBuddyPhones %s buddy phones.", String.valueOf(buddyPhones.size())));
+            Log.d(TAG, String.format("ManageBuddyPhonesActivity %s buddy phones.", String.valueOf(buddyPhones.size())));
             for (BuddyPhone buddyPhone : buddyPhones) {
                 Card card = new Card(getBaseContext());
                 final CardHeader cardHeader = new CardHeader(getBaseContext());
@@ -90,7 +90,7 @@ public class ManageBuddyPhones extends AppCompatActivity {
                             String toastMessage = String.format("Successfully removed %s.", baseCard.getTitle());
                             Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
                         }
-                        Intent intent = new Intent(getBaseContext(), ManageBuddyPhones.class);
+                        Intent intent = new Intent(getBaseContext(), ManageBuddyPhonesActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -101,7 +101,7 @@ public class ManageBuddyPhones extends AppCompatActivity {
                 cards.add(card);
             }
         } else {
-            Log.d(TAG, "ManageBuddyPhones No paired buddy phones.");
+            Log.d(TAG, "ManageBuddyPhonesActivity No paired buddy phones.");
             Card card = new Card(getBaseContext());
             CardHeader cardHeader = new CardHeader(getBaseContext());
             cardHeader.setTitle("No paired buddy phones.");

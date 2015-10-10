@@ -1,5 +1,6 @@
 package com.github.beauties_beast.phonebuddy;
 
+import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -121,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(BUDDY_COLUMN_NUMBER, buddyPhone.getPhoneNumber());
         db.insert(BUDDY_TABLE_NAME, null, values);
         db.close();
+        ServiceManager.getInstance().refreshStatus();
     }
 
     public void removeBuddyPhone(String number) {
@@ -132,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(BUDDY_TABLE_NAME, BUDDY_COLUMN_NUMBER + " =? ", new String[]{String.valueOf(buddyPhone.getPhoneNumber())});
         db.close();
+        ServiceManager.getInstance().refreshStatus();
     }
 
     public ArrayList<BuddyPhone> getBuddyPhones() {
@@ -172,6 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         cursor.close();
 
+        Log.d(TAG, String.format("Database getBuddyPhones() %s", String.valueOf(buddyPhones.size())));
         return buddyPhones;
     }
 

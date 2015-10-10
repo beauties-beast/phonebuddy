@@ -16,20 +16,23 @@ public class CommandParser {
     }
 
     public boolean parse(String sms) {
-        String[] smsArr = sms.split(" ");
-        String keyword = smsArr[0];
+        String keyword = sms.split(" ")[0];
         boolean parsed = false;
 
         Log.d(TAG, String.format("%s %s", TAG, keyword));
 
+        CommandInterface command;
+
         switch(keyword) {
-            case "SMS":
+            case "!SMS":
+                command = new SmsCommand();
+                parsed = command.parse(sms, context);
                 break;
-            case "SOS":
+            case "!SOS":
                 break;
-            case "LOCATION":
+            case "!LOCATION":
                 break;
-            case "STATUS":
+            case "!STATUS":
                 break;
             default:
                 parsed = false;

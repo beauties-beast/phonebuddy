@@ -1,5 +1,7 @@
 package com.github.beauties_beast.phonebuddy;
 
+import android.telephony.PhoneNumberUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +32,10 @@ public class BuddyPhone {
 
     public boolean sendSms(String body) {
         return SmsHelper.sendSms(phoneNumber, body);
+    }
+
+    public boolean sendSms(String body, int options) {
+        return SmsHelper.sendSms(phoneNumber, body, options);
     }
 
     public String getNickName() {
