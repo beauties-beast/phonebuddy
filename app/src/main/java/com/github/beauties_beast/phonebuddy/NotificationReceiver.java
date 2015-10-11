@@ -50,7 +50,14 @@ public class NotificationReceiver extends NotificationListenerService {
             //TODO: Send app name, packageName, and tickerText (or full text) to class that forwards messages to buddy phone.
 
             databaseHelper = new DatabaseHelper(getBaseContext());
-            databaseHelper.addNotification(notification);
+            if(databaseHelper.getNotificationConfig().contains(packageName)) {
+                Log.d(TAG, String.format("contains %s", packageName));
+                databaseHelper.addNotification(notification);
+                NotificationForwarder notificationForwarder = new NotificationForwarder();
+                notificationForwarder.parse(notification, getBaseContext());
+            } else {
+                Log.d(TAG, String.format("notContains %s", packageName));
+            }
 
             super.onNotificationPosted(sbn);
         }

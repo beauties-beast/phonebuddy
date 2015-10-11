@@ -45,7 +45,7 @@ public class SmsHelper {
     }
 
     public static String getPhoneNumber(String name, Context context) {
-        // TODO: Better number getter. Fix this ugly code.
+        // TODO: Better number getter. Fix this ugly code. Only accepts complete matches.
         ArrayList<String> numbers = new ArrayList<>();
 
     	Cursor cursor = null;

@@ -6,7 +6,7 @@
     android:fillViewport="true"
     tools:context=".Settings"
     android:scrollbars="vertical"
-    android:id="@+id/scrollViewNotificationConfig">
+    android:id="@+id/scrollViewAddNotificationConfig">
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,14 +22,27 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:layout_marginRight="12dp"
-            android:text="Forwarding notifications for:"
+            android:text="Forward notifications for:"
             android:id="@+id/textView" />
 
-        <it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            card:list_card_layout_resourceID="@layout/recyclerview_card_layout"
-            android:id="@+id/notificationconfig_recyclerview"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/addnotificationconfig_spinner"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/addnotificationconfig_add"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </ScrollView>

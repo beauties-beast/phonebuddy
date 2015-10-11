@@ -19,7 +19,7 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseHelper";
 
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "PhoneBuddy.db";
 
     public static final String BUDDY_TABLE_NAME = "buddies_list";
@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void dropNotificationLogTable(SQLiteDatabase db) {
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", NOTIFICATION_LOG_COLUMN_CREATED_AT));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", NOTIFICATION_LOG_TABLE_NAME));
     }
 
     public void addBuddyPhone(BuddyPhone buddyPhone) {
@@ -239,5 +239,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(NOTIFICATION_LOG_TABLE_NAME, null, null);
         db.close();
+    }
+
+    public void addNotificationConfig(String packageName) {
+        Log.d(TAG, String.format("Database addNotificationConfig()"));
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME, packageName);
+        db.insert(NOTIFICATION_CONFIG_TABLE_NAME, null, values);
+        db.close();
+        ServiceManager.getInstance().refreshStatus();
+    }
+
+    public void removeNotificationConfig(String packageName) {
+        Log.d(TAG, String.format("Database removeNotificationConfig()"));
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(NOTIFICATION_CONFIG_TABLE_NAME, NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME+ " =? ", new String[]{String.valueOf(packageName)});
+        db.close();
+        ServiceManager.getInstance().refreshStatus();
+    }
+
+    public ArrayList<String> getNotificationConfig() {
+        Log.d(TAG, String.format("Database getNotificationConfig()"));
+
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<String> packageNames = new ArrayList<>();
+
+        db.rawQuery(String.format("SELECT * FROM %s ", NOTIFICATION_CONFIG_TABLE_NAME), null);
+
+        Cursor cursor = db.query(NOTIFICATION_CONFIG_TABLE_NAME,
+                new String[]{ NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME },
+                null, // id = ?
+                null,
+                null,
+                null,
+                String.format("%s DESC", NOTIFICATION_LOG_COLUMN_CREATED_AT)
+        );
+
+        if(cursor.moveToFirst()) {
+            do {
+                String packageName = cursor.getString(cursor.getColumnIndex(NOTIFICATION_CONFIG_COLUMN_PACKAGE_NAME));
+                packageNames.add(packageName);
+            } while(cursor.moveToNext());
+        }
+
+        db.close();
+        cursor.close();
+
+        return packageNames;
     }
 }

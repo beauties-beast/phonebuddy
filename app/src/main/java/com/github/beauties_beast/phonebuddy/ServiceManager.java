@@ -1,11 +1,14 @@
 package com.github.beauties_beast.phonebuddy;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by boggs on 10/9/15.
  */
 public class ServiceManager {
+    private static final String TAG = "ServiceManager";
+
     private static ServiceManager instance = new ServiceManager();
 
     public static ServiceManager getInstance() {
@@ -29,6 +32,7 @@ public class ServiceManager {
     }
 
     public boolean isActive() {
+        Log.d(TAG, String.format("Service active: %s", String.valueOf(active)));
         return active;
     }
 
@@ -36,6 +40,7 @@ public class ServiceManager {
         if (active) {
             if (databaseHelper.getBuddyPhones().size() > 0) {
                 this.active = true;
+                databaseHelper.resetNotifications();
                 return true;
             } else {
                 this.active = false;

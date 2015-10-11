@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.github.beauties_beast.phonebuddy.ManageBuddyPhonesActivity">
-    <item android:id="@+id/manage_buddy_phones_remove"
+    <item android:id="@+id/notification_config_remove"
         android:title="Remove"
         app:showAsAction="never" />
 </menu>

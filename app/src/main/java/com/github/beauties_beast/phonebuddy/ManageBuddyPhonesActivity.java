@@ -19,7 +19,7 @@ import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerView
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 
 public class ManageBuddyPhonesActivity extends AppCompatActivity {
-    public final static String TAG = "ManageBuddyPhonesActivity";
+    public final static String TAG = "ManageBuddyPhonesAct";
 
     DatabaseHelper databaseHelper;
     ArrayList<Card> cards;
@@ -78,21 +78,21 @@ public class ManageBuddyPhonesActivity extends AppCompatActivity {
             Log.d(TAG, String.format("ManageBuddyPhonesActivity %s buddy phones.", String.valueOf(buddyPhones.size())));
             for (BuddyPhone buddyPhone : buddyPhones) {
                 Card card = new Card(getBaseContext());
-                final CardHeader cardHeader = new CardHeader(getBaseContext());
-//                cardHeader.setTitle(!buddyPhone.getNickName().equals("") ? buddyPhone.getNickName() : "Buddy Phone");
+                CardHeader cardHeader = new CardHeader(getBaseContext());
                 cardHeader.setTitle(buddyPhone.getPhoneNumber());
                 cardHeader.setButtonOverflowVisible(true);
                 CardHeader.OnClickCardHeaderPopupMenuListener popupMenuListener = new CardHeader.OnClickCardHeaderPopupMenuListener() {
                     @Override
                     public void onMenuItemClick(BaseCard baseCard, MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Remove")) {
-                            databaseHelper.removeBuddyPhone(cardHeader.getTitle());
-                            String toastMessage = String.format("Successfully removed %s.", baseCard.getTitle());
+                            String number = baseCard.getCardView().getCard().getCardHeader().getTitle().toString();
+                            databaseHelper.removeBuddyPhone(number);
+                            String toastMessage = String.format("Successfully removed %s.", number);
                             Toast.makeText(getBaseContext(), toastMessage, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getBaseContext(), ManageBuddyPhonesActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
-                        Intent intent = new Intent(getBaseContext(), ManageBuddyPhonesActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 };
                 cardHeader.setPopupMenu(R.menu.menu_manage_buddy_phone_item, popupMenuListener);

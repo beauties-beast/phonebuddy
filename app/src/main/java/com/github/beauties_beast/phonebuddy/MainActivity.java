@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper = new DatabaseHelper(getBaseContext());
-        databaseHelper.resetNotifications();
 
         ServiceManager.getInstance().initContext(getBaseContext());
         ServiceManager.getInstance().initDatabaseHelper();
