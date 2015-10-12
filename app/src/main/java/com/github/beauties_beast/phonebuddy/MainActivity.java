@@ -79,6 +79,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.main_action_settings) {
+            Intent intent = new Intent();
+            intent.setClass(getBaseContext(), SettingsActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     ArrayList<Card> cards = new ArrayList<>();
 
     public void initCards() {

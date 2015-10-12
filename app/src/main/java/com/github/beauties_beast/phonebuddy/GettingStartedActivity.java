@@ -57,12 +57,23 @@ public class GettingStartedActivity extends AppCompatActivity {
     public void initCards() {
 //        for(int i = 0; i < 10; i++)
 //            initHelpItem1();
+        initHelpItem0();
         initHelpItem1();
         initHelpItem2();
         initHelpItem3();
         initHelpItem4();
         initHelpItem5();
+        initHelpItem6();
         renderCards();
+    }
+
+    private void initHelpItem0() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("I want to learn more about PhoneBuddy, how it works, and how I can fully unlock its potential!");
+        card.addCardHeader(cardHeader);
+        card.setTitle("You can check out our primer which contains all the information you're looking for - including PhoneBuddy's functionality, commands, and information about the app itself. http://tinyurl.com/PhoneBuddyPrimer");
+        cards.add(card);
     }
 
     private void initHelpItem1() {
@@ -72,7 +83,7 @@ public class GettingStartedActivity extends AppCompatActivity {
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
         CardExpand cardExpand = new CardExpand(getBaseContext());
-        cardExpand.setTitle("PhoneBuddy is an Android buddy pairing application that features incoming SMS forwarding, outgoing SMS forwarding and notification forwarding.");
+        cardExpand.setTitle("PhoneBuddy lets you interface with your smartphone from any SMS-capable device - which will be referred to as your buddy phone.");
         card.addCardExpand(cardExpand);
         cards.add(card);
     }
@@ -80,11 +91,11 @@ public class GettingStartedActivity extends AppCompatActivity {
     private void initHelpItem2() {
         Card card = new Card(getBaseContext());
         CardHeader cardHeader = new CardHeader(getBaseContext());
-        cardHeader.setTitle("How can I pair my buddy phone?");
+        cardHeader.setTitle("How can I pair a buddy phone?");
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
         CardExpand cardExpand = new CardExpand(getBaseContext());
-        cardExpand.setTitle("Under 'Manage Buddy Phones', tap on the + on the top right to pair a new buddy phone. Just enter your cellphone number and a verification code would be sent.");
+        cardExpand.setTitle("Under 'Manage Buddy Phones', tap on the + on the top right to pair a new buddy phone. Enter your buddy phone's number and a verification code will be sent.");
         card.addCardExpand(cardExpand);
         cards.add(card);
     }
@@ -121,6 +132,18 @@ public class GettingStartedActivity extends AppCompatActivity {
         card.addCardHeader(cardHeader);
         CardExpand cardExpand = new CardExpand(getBaseContext());
         cardExpand.setTitle("There is a toggle button on the top bar where you can activate and deactivate the service.");
+        card.addCardExpand(cardExpand);
+        cards.add(card);
+    }
+
+    private void initHelpItem6() {
+        Card card = new Card(getBaseContext());
+        CardHeader cardHeader = new CardHeader(getBaseContext());
+        cardHeader.setTitle("Why am I not receiving notifications on my buddy phone?");
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        CardExpand cardExpand = new CardExpand(getBaseContext());
+        cardExpand.setTitle("You need to enable Notification Access for PhoneBuddy. This can be accessed from Settings > Sound & notification > Notification access. For detailed instructions, check out our primer at http://tinyurl.com/PhoneBuddyPrimer.");
         card.addCardExpand(cardExpand);
         cards.add(card);
     }
