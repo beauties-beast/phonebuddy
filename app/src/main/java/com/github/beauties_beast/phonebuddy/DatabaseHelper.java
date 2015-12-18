@@ -19,8 +19,12 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseHelper";
 
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 10;
     public static final String DATABASE_NAME = "PhoneBuddy.db";
+
+    public static final String FIRST_RUN_TABLE = "first_run";
+    public static final String FIRST_RUN_ID = "id";
+    public static final String FIRST_RUN_IS_FIRST_RUN = "is_first_run";
 
     public static final String BUDDY_TABLE_NAME = "buddies_list";
     public static final String BUDDY_COLUMN_ID = "id";
@@ -48,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, String.format("Database create version %s.", DATABASE_VERSION));
+        initializeFirstRunTable(db);
         initializeBuddyTable(db);
         initializeNotificationConfigTable(db);
         initializeNotificationLogTable(db);
@@ -56,10 +61,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, String.format("Database upgrade from %s to %s.", oldVersion, newVersion));
+        dropFirstRunTable(db);
         dropBuddyTable(db);
         dropNotificationConfigPreferenceTable(db);
         dropNotificationLogTable(db);
         onCreate(db);
+    }
+
+    public void initializeFirstRunTable(SQLiteDatabase db) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(String.format("CREATE TABLE %s ", FIRST_RUN_TABLE));
+        sql.append("(");
+        sql.append(String.format("%s %s, ", FIRST_RUN_ID, "INTEGER PRIMARY KEY"));
+        sql.append(String.format("%s %s ", FIRST_RUN_IS_FIRST_RUN, "TEXT"));
+        sql.append(")");
+        Log.d(TAG, String.format("Exec: %s", sql.toString()));
+        db.execSQL(sql.toString());
     }
 
     public void initializeBuddyTable(SQLiteDatabase db) {
@@ -73,6 +90,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sql.append(")");
         Log.d(TAG, String.format("Exec: %s", sql.toString()));
         db.execSQL(sql.toString());
+    }
+
+    public void dropFirstRunTable(SQLiteDatabase db) {
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", FIRST_RUN_TABLE));
     }
 
     public void dropBuddyTable(SQLiteDatabase db) {
@@ -287,5 +308,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return packageNames;
+    }
+
+    public boolean isFirstRun() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(FIRST_RUN_TABLE,
+                new String[]{ FIRST_RUN_ID, FIRST_RUN_IS_FIRST_RUN },
+                null, // id = ?
+                null,
+                null,
+                null,
+                null
+        );
+
+        if(cursor.getCount() > 0) {
+           return true;
+        } else {
+            SQLiteDatabase dbW = getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(FIRST_RUN_IS_FIRST_RUN, "true");
+            dbW.insert(FIRST_RUN_TABLE, null, values);
+            dbW.close();
+        }
+
+        db.close();
+        cursor.close();
+
+        return false;
     }
 }

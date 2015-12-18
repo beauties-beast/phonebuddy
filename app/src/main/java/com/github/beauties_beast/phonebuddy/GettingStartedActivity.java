@@ -57,7 +57,7 @@ public class GettingStartedActivity extends AppCompatActivity {
     public void initCards() {
 //        for(int i = 0; i < 10; i++)
 //            initHelpItem1();
-        initHelpItem0();
+//        initHelpItem0();
         initHelpItem1();
         initHelpItem2();
         initHelpItem3();

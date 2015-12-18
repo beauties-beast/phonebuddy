@@ -1,7 +1,9 @@
 package com.github.beauties_beast.phonebuddy;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.provider.Settings;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,8 +74,42 @@ public class NotificationConfigActivity extends AppCompatActivity {
 
     public void initCards() {
         cards = new ArrayList<>();
+        initNotificationInfo();
         initNotificationCards();
         renderCards();
+    }
+
+    public void initNotificationInfo() {
+        ContentResolver contentResolver = getBaseContext().getContentResolver();
+        String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+        String packageName = getBaseContext().getPackageName();
+
+        // check to see if the enabledNotificationListeners String contains our package name
+        if (enabledNotificationListeners == null || !enabledNotificationListeners.contains(packageName))
+        {
+            // in this situation we know that the user has not granted the app the Notification access permission
+//            throw new Exception();
+            Card card = new Card(getBaseContext());
+            CardHeader cardHeader = new CardHeader(getBaseContext());
+            cardHeader.setTitle("You need to enable Notification Access for PhoneBuddy.");
+            card.addCardHeader(cardHeader);
+            card.setTitle("In order to push notifications from your smartphone to your buddy phone, you need to give PhoneBuddy notification access." +
+                    "Tap on this card to enable access.");
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+//                    Intent intent = new Intent();
+//                    intent.setClass(getBaseContext(), NotificationConfigActivity.class);
+//                    startActivity(intent);
+                    startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                }
+            });
+            cards.add(card);
+        }
+        else
+        {
+//            doSomethingThatRequiresNotificationAccessPermission();
+        }
     }
 
     public void initNotificationCards() {
