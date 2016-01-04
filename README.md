@@ -30,4 +30,4 @@ Start building!
 
 ## About PhoneBuddy
 
-PhoneBuddy is developed by [Boggs Aldanese](https://github.com/b-ggs), [Deanne Chan](https://github.com/deannechan), and [Via Sido](https://github.com/viaaasido).
+PhoneBuddy is developed by [Boggs Aldanese](http://boggs.xyz), [Deanne Chan](https://github.com/deannechan), and [Via Sido](https://github.com/viaaasido).
