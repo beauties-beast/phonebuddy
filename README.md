@@ -9,21 +9,21 @@ Perfect for those times when you really need to send a text message out in publi
 
 Your buddy phone lets you keep up to date with what's happening, without having to bring out your smartphone.
 
+## Screenshots
+<img src="https://lh3.googleusercontent.com/--ScnfrzZHHXk7sVfJ8Nf4k5FEfgXTWl9yfXC1l9_ZvT9OvLttb4Gp0zM1p9AXTcimk=h900-rw" width="300px" />
+<img src="https://lh3.googleusercontent.com/uE1Z9X-HtbKYZczXkZZXeRpGbgRenU21HuhLGg0em8Om08L7_gwZI_y900jSEIuNMA=h900-rw" width="300px" />
+
 ## Building PhoneBuddy
-1. Clone the repository.
+* Clone the repository.
 ```
 $ git clone https://github.com/beauties-beast/phonebuddy.git
 ```
 
-2. Run gradle sync in order to download the open source libraries used.
+* Run gradle sync in order to download the open source libraries used.
 
-3. Start building!
+* Start building!
 
 ## Open Source Libraries Used
-
-## Screenshots
-<img src="https://lh3.googleusercontent.com/--ScnfrzZHHXk7sVfJ8Nf4k5FEfgXTWl9yfXC1l9_ZvT9OvLttb4Gp0zM1p9AXTcimk=h900-rw" width="300px" />
-<img src="https://lh3.googleusercontent.com/uE1Z9X-HtbKYZczXkZZXeRpGbgRenU21HuhLGg0em8Om08L7_gwZI_y900jSEIuNMA=h900-rw" width="300px" />
 
 * [CardsLib](https://github.com/gabrielemariotti/cardslib) by Gabriele Mariotti
 * [AppIntro](https://github.com/PaoloRotolo/AppIntro) by Paolo Rotolo
