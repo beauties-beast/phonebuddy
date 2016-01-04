@@ -14,14 +14,14 @@ Your buddy phone lets you keep up to date with what's happening, without having 
 <img src="https://lh3.googleusercontent.com/uE1Z9X-HtbKYZczXkZZXeRpGbgRenU21HuhLGg0em8Om08L7_gwZI_y900jSEIuNMA=h900-rw" width="300px" />
 
 ## Building PhoneBuddy
-* Clone the repository.
+Clone the repository.
 ```
 $ git clone https://github.com/beauties-beast/phonebuddy.git
 ```
 
-* Run gradle sync in order to download the open source libraries used.
+Run gradle sync in order to download the open source libraries used.
 
-* Start building!
+Start building!
 
 ## Open Source Libraries Used
 
