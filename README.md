@@ -21,6 +21,10 @@ $ git clone https://github.com/beauties-beast/phonebuddy.git
 
 ## Open Source Libraries Used
 
+## Screenshots
+<img src="https://lh3.googleusercontent.com/--ScnfrzZHHXk7sVfJ8Nf4k5FEfgXTWl9yfXC1l9_ZvT9OvLttb4Gp0zM1p9AXTcimk=h900-rw" width="300px" />
+<img src="https://lh3.googleusercontent.com/uE1Z9X-HtbKYZczXkZZXeRpGbgRenU21HuhLGg0em8Om08L7_gwZI_y900jSEIuNMA=h900-rw" width="300px" />
+
 * [CardsLib](https://github.com/gabrielemariotti/cardslib) by Gabriele Mariotti
 * [AppIntro](https://github.com/PaoloRotolo/AppIntro) by Paolo Rotolo
 
